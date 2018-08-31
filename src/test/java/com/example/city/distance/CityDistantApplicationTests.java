@@ -1,4 +1,4 @@
-package com.example.cityDistant;
+package com.example.city.distance;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
