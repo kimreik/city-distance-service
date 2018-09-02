@@ -1,6 +1,5 @@
 package com.example.city.distance.model;
 
-import org.neo4j.graphdb.Direction;
 import org.neo4j.ogm.annotation.*;
 
 import java.util.ArrayList;

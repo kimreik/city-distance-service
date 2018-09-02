@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.5.RELEASE'
+		springBootVersion = '2.0.4.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -32,4 +32,8 @@ dependencies {
     compile group: 'org.neo4j', name: 'neo4j-ogm-embedded-driver', version: '3.1.2'
     compile group: 'org.neo4j', name: 'neo4j-ogm-bolt-driver', version: '3.1.2'
     compile group: 'org.neo4j', name: 'neo4j', version: '3.4.6'
+
+
+	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 }

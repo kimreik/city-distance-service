@@ -15,7 +15,7 @@ public class Road {
     @EndNode
     private City to;
 
-    private Float distance;
+    private Double distance;
 
     public Long getId() {
         return id;
@@ -44,11 +44,11 @@ public class Road {
         return this;
     }
 
-    public Float getDistance() {
+    public Double getDistance() {
         return distance;
     }
 
-    public Road setDistance(Float distance) {
+    public Road setDistance(Double distance) {
         this.distance = distance;
         return this;
     }

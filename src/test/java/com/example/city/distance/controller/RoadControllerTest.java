@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -57,13 +58,39 @@ public class RoadControllerTest {
 
     @Test
     public void add_negative_distance() throws Exception {
-        RoadDTO dto = getValidDTO().setDistance(-42f);
+        RoadDTO dto = getValidDTO().setDistance(-42.);
         performPost(dto)
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    public void get_roads_valid() throws Exception {
+        mockMvc.perform(get("/roads")
+                .param("from", "from")
+                .param("to", "to")
+                .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
+    }
+
+    @Test
+    public void get_roads_empty_from() throws Exception {
+        mockMvc.perform(get("/roads")
+                .param("to", "to")
+                .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void get_roads_empty_to() throws Exception {
+        mockMvc.perform(get("/roads")
+                .param("from", "from")
+                .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isBadRequest());
+    }
+
+
     private ResultActions performPost(RoadDTO dto) throws Exception {
-        return mockMvc.perform(post("/road")
+        return mockMvc.perform(post("/roads")
                 .content(mapper.writeValueAsString(dto))
                 .contentType(MediaType.APPLICATION_JSON));
     }
@@ -72,7 +99,7 @@ public class RoadControllerTest {
         return new RoadDTO()
                 .setTo("to")
                 .setFrom("from")
-                .setDistance(42f);
+                .setDistance(42.);
     }
 
 

@@ -11,7 +11,7 @@ public class RoadDTO {
     private String to;
     @NotNull
     @Min(0)
-    private Float distance;
+    private Double distance;
 
     public String getFrom() {
         return from;
@@ -31,11 +31,11 @@ public class RoadDTO {
         return this;
     }
 
-    public Float getDistance() {
+    public Double getDistance() {
         return distance;
     }
 
-    public RoadDTO setDistance(Float distance) {
+    public RoadDTO setDistance(Double distance) {
         this.distance = distance;
         return this;
     }
