@@ -67,4 +67,10 @@ public class RoadRepositoryTest {
         assertEquals(1, roads.size());
         assertEquals(3, roads.get(0).getPath().size());
     }
+
+    @Test
+    public void find_opposite_road(){
+        List<RoadInfoDTO> roads = roadRepository.findRoads("to", "from");
+        assertEquals(1, roads.size());
+    }
 }

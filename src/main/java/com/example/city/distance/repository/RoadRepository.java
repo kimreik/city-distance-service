@@ -13,7 +13,7 @@ public interface RoadRepository extends Neo4jRepository<Road, Long> {
     Optional<Road> findByFromIdAndToId(Long from, Long to);
 
     @Query("MATCH (from: City {name:{from}}), (to: City {name:{to}}) , \n" +
-            "p = (from)-[rels:HAS_ROAD_TO*]->(to)\n" +
+            "p = (from)-[rels:HAS_ROAD_TO*]-(to)\n" +
             "WITH REDUCE(dist = 0, rel in rels | dist + rel.distance) AS distance, p\n" +
             "RETURN extract(n IN nodes(p)| n.name) as path, distance")
     List<RoadInfoDTO> findRoads(@Param("from") String from, @Param("to") String to);
