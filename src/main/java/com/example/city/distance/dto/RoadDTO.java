@@ -1,16 +1,8 @@
 package com.example.city.distance.dto;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 public class RoadDTO {
-    @NotEmpty
     private String from;
-    @NotEmpty
     private String to;
-    @NotNull
-    @Min(0)
     private Double distance;
 
     public String getFrom() {

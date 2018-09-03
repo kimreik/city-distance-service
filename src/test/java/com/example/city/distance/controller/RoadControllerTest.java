@@ -36,34 +36,6 @@ public class RoadControllerTest {
     }
 
     @Test
-    public void add_empty_to() throws Exception {
-        RoadDTO dto = getValidDTO().setTo("");
-        performPost(dto)
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    public void add_empty_from() throws Exception {
-        RoadDTO dto = getValidDTO().setFrom("");
-        performPost(dto)
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    public void add_null_distance() throws Exception {
-        RoadDTO dto = getValidDTO().setDistance(null);
-        performPost(dto)
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    public void add_negative_distance() throws Exception {
-        RoadDTO dto = getValidDTO().setDistance(-42.);
-        performPost(dto)
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
     public void get_roads_valid() throws Exception {
         mockMvc.perform(get("/roads")
                 .param("from", "from")
