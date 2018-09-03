@@ -14,10 +14,7 @@ public class CityService {
     }
 
     public City getNewOrExisting(String name) {
-        return cityRepository.findByName(name).orElse(new City().setName(name));
-    }
-
-    public City save(City city) {
-        return cityRepository.save(city);
+        return cityRepository.findByName(name)
+                .orElse(new City().setName(name));
     }
 }

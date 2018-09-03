@@ -5,6 +5,7 @@ import com.example.city.distance.dto.RoadInfoDTO;
 import com.example.city.distance.exception.RoadNotFoundException;
 import com.example.city.distance.model.City;
 import com.example.city.distance.model.Road;
+import com.example.city.distance.model.RoadList;
 import com.example.city.distance.repository.RoadRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +39,7 @@ public class RoadServiceTest {
 
     @Test
     public void update_existing_road() throws Exception {
-        when(roadRepository.findByFromIdAndToId(anyLong(), anyLong())).thenReturn(Optional.of(getRoad()));
+        when(roadRepository.findDirectRoad(anyLong(), anyLong())).thenReturn(getRoadList());
         when(roadRepository.save(any())).thenReturn(getRoad());
         addWord();
     }
@@ -59,12 +60,16 @@ public class RoadServiceTest {
                 .setDistance(42.);
     }
 
-    private Road getRoad(){
+    private RoadList getRoadList() {
+        return new RoadList().setRoads(Collections.singletonList(getRoad()));
+    }
+
+    private Road getRoad() {
         return new Road()
                 .setFrom(new City()
-                    .setName("from"))
+                        .setName("from"))
                 .setTo(new City()
-                    .setName("to"))
+                        .setName("to"))
                 .setDistance(42.);
     }
 
