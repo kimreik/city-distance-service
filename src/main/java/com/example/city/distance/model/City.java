@@ -11,7 +11,7 @@ public class City {
     @Id
     @GeneratedValue
     private Long id;
-    @Index
+    @Index(unique = true)
     private String name;
 
     @Relationship(type = "HAS_ROAD_TO", direction = Relationship.UNDIRECTED)

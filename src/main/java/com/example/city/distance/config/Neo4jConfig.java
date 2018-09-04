@@ -1,5 +1,6 @@
 package com.example.city.distance.config;
 
+import org.neo4j.ogm.config.AutoIndexMode;
 import org.neo4j.ogm.session.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +19,7 @@ public class Neo4jConfig {
         return new org.neo4j.ogm.config.Configuration.Builder()
                 .uri("bolt://localhost")
                 .credentials("neo4j", "password")
+                .autoIndex(AutoIndexMode.ASSERT.getName())
                 .build();
     }
 

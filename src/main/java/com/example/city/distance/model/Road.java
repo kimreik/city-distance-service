@@ -1,7 +1,6 @@
 package com.example.city.distance.model;
 
 import org.neo4j.ogm.annotation.*;
-import org.springframework.data.neo4j.annotation.QueryResult;
 
 @RelationshipEntity(type = "HAS_ROAD_TO")
 public class Road {
@@ -16,6 +15,7 @@ public class Road {
     @EndNode
     private City to;
 
+    @Index
     private Double distance;
 
     public Long getId() {

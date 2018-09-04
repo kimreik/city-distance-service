@@ -7,9 +7,14 @@ import com.example.city.distance.model.City;
 import com.example.city.distance.model.Road;
 import com.example.city.distance.model.RoadList;
 import com.example.city.distance.repository.RoadRepository;
+import org.jboss.logging.Logger;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 
 @Service
 public class RoadService {
@@ -18,19 +23,37 @@ public class RoadService {
 
     private final CityService cityService;
 
+    private BlockingQueue<RoadDTO> insertionQueue = new LinkedBlockingQueue<>();
+
+
     public RoadService(RoadRepository roadRepository, CityService cityService) {
         this.roadRepository = roadRepository;
         this.cityService = cityService;
     }
 
-    public Road addRoad(RoadDTO dto) {
+    @PostConstruct
+    public void init() {
+        Executors.newSingleThreadExecutor().submit(() -> {
+            while (true) {
+                Logger.getLogger(RoadService.class).info("ready for next, queue size:" + insertionQueue.size());
+                insertRoad(insertionQueue.take());
+            }
+        });
+    }
+
+
+    public void addRoad(RoadDTO dto) {
+        insertionQueue.add(dto);
+    }
+
+    private void insertRoad(RoadDTO dto) {
         City from = cityService.getNewOrExisting(dto.getFrom());
         City to = cityService.getNewOrExisting(dto.getTo());
 
         Road road = getRoadBetweenTwoCities(from, to)
                 .setDistance(dto.getDistance());
 
-        return roadRepository.save(road);
+        roadRepository.save(road);
     }
 
     private Road getRoadBetweenTwoCities(City from, City to) {
