@@ -29,13 +29,13 @@ public class RoadInsertServiceTest {
     private RoadRepository roadRepository;
 
     @Test
-    public void insert_new_road() {
+    public void insertNewRoad() {
         when(roadRepository.save(any())).thenReturn(getRoad());
         insertRoad();
     }
 
     @Test
-    public void update_existing_road() {
+    public void updateExistingRoad() {
         when(roadRepository.findDirectRoad(any(), any())).thenReturn(getRoadList());
         when(roadRepository.save(any())).thenReturn(getRoad());
         insertRoad();

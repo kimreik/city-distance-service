@@ -48,7 +48,7 @@ public class RoadServiceTest {
     }
 
     @Test
-    public void get_roads() {
+    public void getRoads() {
         when(roadRepository.findRoads(any(), any())).thenReturn(Collections.singletonList(getRoadInfoDto()));
         RoadInfoDTO dto = getRoadInfoDto();
         List<RoadInfoDTO> roads = roadService.getRoads("from", "to");
@@ -60,7 +60,7 @@ public class RoadServiceTest {
     }
 
     @Test(expected = RoadNotFoundException.class)
-    public void get_roads_empty() {
+    public void getRoadsEmpty() {
         when(roadRepository.findRoads(any(), any())).thenReturn(Collections.emptyList());
         roadService.getRoads("from", "to");
     }

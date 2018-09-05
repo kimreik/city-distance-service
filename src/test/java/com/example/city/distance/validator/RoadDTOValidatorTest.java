@@ -9,36 +9,36 @@ public class RoadDTOValidatorTest {
     private RoadDTOValidator validator = new RoadDTOValidator();
 
     @Test
-    public void validate_valid() throws Exception {
+    public void validate() {
         validator.validate(getValidDTO());
     }
 
     @Test(expected = CustomMethodArgumentNotValidException.class)
-    public void validate_empty_to() throws Exception {
+    public void validateEmptyTo() {
         RoadDTO dto = getValidDTO().setTo("");
         validator.validate(dto);
     }
 
     @Test(expected = CustomMethodArgumentNotValidException.class)
-    public void validate_empty_from() throws Exception {
+    public void validateEmptyFrom() {
         RoadDTO dto = getValidDTO().setFrom("");
         validator.validate(dto);
     }
 
     @Test(expected = CustomMethodArgumentNotValidException.class)
-    public void validate_null_distance() throws Exception {
+    public void validateNullDistance() {
         RoadDTO dto = getValidDTO().setDistance(null);
         validator.validate(dto);
     }
 
     @Test(expected = CustomMethodArgumentNotValidException.class)
-    public void validate_negative_distance() throws Exception {
+    public void validateNegativeDistance() {
         RoadDTO dto = getValidDTO().setDistance(-42.);
         validator.validate(dto);
     }
 
     @Test(expected = CustomMethodArgumentNotValidException.class)
-    public void validate_from_equals_to() throws Exception {
+    public void validateFromEqualsTo() {
         RoadDTO dto = getValidDTO().setTo("from");
         validator.validate(dto);
     }

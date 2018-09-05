@@ -34,13 +34,13 @@ public class RoadControllerTest {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    public void add_valid() throws Exception {
+    public void addValid() throws Exception {
         performPost(getValidDTO())
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void get_roads_valid() throws Exception {
+    public void getRoadsValid() throws Exception {
         mockMvc.perform(get("/roads")
                 .param("from", "from")
                 .param("to", "to")
@@ -49,7 +49,7 @@ public class RoadControllerTest {
     }
 
     @Test
-    public void get_roads_empty_from() throws Exception {
+    public void getRoadsEmptyFrom() throws Exception {
         mockMvc.perform(get("/roads")
                 .param("to", "to")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -57,7 +57,7 @@ public class RoadControllerTest {
     }
 
     @Test
-    public void get_roads_empty_to() throws Exception {
+    public void getRoadsEmptyTo() throws Exception {
         mockMvc.perform(get("/roads")
                 .param("from", "from")
                 .contentType(MediaType.APPLICATION_JSON))

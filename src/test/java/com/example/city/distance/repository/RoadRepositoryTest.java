@@ -38,13 +38,13 @@ public class RoadRepositoryTest {
     }
 
     @Test
-    public void find_direct_road() {
+    public void findDirectRoad() {
         List<RoadInfoDTO> roads = roadRepository.findRoads("from", "to");
         assertEquals(1, roads.size());
     }
 
     @Test
-    public void find_compound_road() {
+    public void findCompoundRoad() {
         City to2 = new City()
                 .setName("to2");
         Road road = new Road()
@@ -59,19 +59,19 @@ public class RoadRepositoryTest {
     }
 
     @Test
-    public void find_opposite_road() {
+    public void findOppositeRoad() {
         List<RoadInfoDTO> roads = roadRepository.findRoads("to", "from");
         assertEquals(1, roads.size());
     }
 
     @Test
-    public void findByFromIdAndToId() throws Exception {
+    public void findByFromIdAndToId() {
         RoadList roadList = roadRepository.findDirectRoad(from.getId(), to.getId());
         assertNotNull(roadList);
     }
 
     @Test
-    public void findByFromIdAndToId_empty() throws Exception {
+    public void findByFromIdAndToIdEmpty() {
         RoadList roadList = roadRepository.findDirectRoad(41L, 42L);
         assertNull(roadList);
     }
