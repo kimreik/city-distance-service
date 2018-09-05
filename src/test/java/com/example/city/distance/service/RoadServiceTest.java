@@ -3,55 +3,42 @@ package com.example.city.distance.service;
 import com.example.city.distance.dto.RoadDTO;
 import com.example.city.distance.dto.RoadInfoDTO;
 import com.example.city.distance.exception.RoadNotFoundException;
-import com.example.city.distance.model.City;
-import com.example.city.distance.model.Road;
-import com.example.city.distance.model.RoadList;
 import com.example.city.distance.repository.RoadRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RoadServiceTest {
 
-    @Autowired
+    @SpyBean
     private RoadService roadService;
 
     @MockBean
     private RoadRepository roadRepository;
 
-    @Test
-    public void add_new_road() throws Exception {
-        when(roadRepository.save(any())).thenReturn(getRoad());
-        addWord();
-    }
+    @MockBean
+    private RoadInsertService roadInsertService;
 
     @Test
-    public void update_existing_road() throws Exception {
-        when(roadRepository.findDirectRoad(anyLong(), anyLong())).thenReturn(getRoadList());
-        when(roadRepository.save(any())).thenReturn(getRoad());
-        addWord();
-    }
-
-    private void addWord() {
+    public void add() {
+        doNothing().when(roadService).init();
         RoadDTO dto = getRoadDto();
-        Road road = roadService.addRoad(dto);
-        assertEquals(dto.getDistance(), road.getDistance());
-        assertEquals(dto.getFrom(), road.getFrom().getName());
-        assertEquals(dto.getTo(), road.getTo().getName());
+        assertTrue(roadService.addRoad(dto));
     }
-
 
     private RoadDTO getRoadDto() {
         return new RoadDTO()
@@ -60,22 +47,8 @@ public class RoadServiceTest {
                 .setDistance(42.);
     }
 
-    private RoadList getRoadList() {
-        return new RoadList().setRoads(Collections.singletonList(getRoad()));
-    }
-
-    private Road getRoad() {
-        return new Road()
-                .setFrom(new City()
-                        .setName("from"))
-                .setTo(new City()
-                        .setName("to"))
-                .setDistance(42.);
-    }
-
-
     @Test
-    public void get_roads() throws Exception {
+    public void get_roads() {
         when(roadRepository.findRoads(any(), any())).thenReturn(Collections.singletonList(getRoadInfoDto()));
         RoadInfoDTO dto = getRoadInfoDto();
         List<RoadInfoDTO> roads = roadService.getRoads("from", "to");
@@ -87,7 +60,7 @@ public class RoadServiceTest {
     }
 
     @Test(expected = RoadNotFoundException.class)
-    public void get_roads_empty() throws Exception {
+    public void get_roads_empty() {
         when(roadRepository.findRoads(any(), any())).thenReturn(Collections.emptyList());
         roadService.getRoads("from", "to");
     }

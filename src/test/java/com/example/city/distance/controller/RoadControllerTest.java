@@ -2,6 +2,7 @@ package com.example.city.distance.controller;
 
 import com.example.city.distance.dto.RoadDTO;
 import com.example.city.distance.service.RoadService;
+import com.example.city.distance.validator.RoadDTOValidator;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,6 +28,9 @@ public class RoadControllerTest {
     @MockBean
     private RoadService roadService;
 
+    @MockBean
+    private RoadDTOValidator validator;
+
     private ObjectMapper mapper = new ObjectMapper();
 
     @Test
@@ -41,7 +45,7 @@ public class RoadControllerTest {
                 .param("from", "from")
                 .param("to", "to")
                 .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk());
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -49,7 +53,7 @@ public class RoadControllerTest {
         mockMvc.perform(get("/roads")
                 .param("to", "to")
                 .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -57,7 +61,7 @@ public class RoadControllerTest {
         mockMvc.perform(get("/roads")
                 .param("from", "from")
                 .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest());
     }
 
 

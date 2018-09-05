@@ -21,15 +21,15 @@ public class RoadInsertService {
     }
 
     @Transactional
-    public void insertRoad(RoadDTO dto) {
+    public Road insertRoad(RoadDTO dto) {
         City from = cityService.getNewOrExisting(dto.getFrom());
         City to = cityService.getNewOrExisting(dto.getTo());
-        Road road = getRoadBetweenTwoCities(from, to)
+        Road road = getDirectRoad(from, to)
                 .setDistance(dto.getDistance());
-        roadRepository.save(road);
+        return roadRepository.save(road);
     }
 
-    private Road getRoadBetweenTwoCities(City from, City to) {
+    private Road getDirectRoad(City from, City to) {
         RoadList roadList = roadRepository.findDirectRoad(from.getId(), to.getId());
         if (roadList == null) {
             return new Road().setFrom(from).setTo(to);

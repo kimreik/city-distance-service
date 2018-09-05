@@ -46,8 +46,8 @@ public class RoadService {
     }
 
 
-    public void addRoad(RoadDTO dto) {
-        insertionQueue.add(dto);
+    public boolean addRoad(RoadDTO dto) {
+        return insertionQueue.add(dto);
     }
 
     public List<RoadInfoDTO> getRoads(String from, String to) {
