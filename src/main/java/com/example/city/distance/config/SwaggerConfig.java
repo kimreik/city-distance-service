@@ -13,7 +13,7 @@ import static springfox.documentation.spi.DocumentationType.SWAGGER_2;
 
 @Configuration
 @EnableSwagger2
-@Profile("dev")
+@Profile({"dev", "prod"})
 public class SwaggerConfig {
 
     @Bean
