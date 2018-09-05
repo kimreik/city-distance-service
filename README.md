@@ -1,7 +1,9 @@
 # city distance
 
 This is a Spring Boot based service for storing and calculating routes between cities.
+
 Neo4j was chosen as the database. It supports ACID transactions, has an integration with spring data, has an active community and covers all my needs in graphs processing.
+
 However, there are no any obvious ways to guarantee uniqueness of relationships between nodes. So, I had to implement the queue to ensure consistency of the data. The queue is processed by separate SingleThread pool executor. This functionality can be moved to a dedicated server with message queue for scalability.
 
 ## how to run
