@@ -28,7 +28,7 @@ public class RoadController {
     }
 
     @GetMapping
-    public List<RoadInfoDTO> getRoads(@RequestParam String from, @RequestParam String to){
+    public List<RoadInfoDTO> getRoads(@RequestParam String from, @RequestParam String to) {
         return roadService.getRoads(from, to);
     }
 }
