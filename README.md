@@ -14,6 +14,7 @@ To run the server with default settings, run following command under the project
 `gradlew bootrun`
 
 By default, the application works with an embedded neo4j server. You can specify connection settings in application-dev.yml and run it with:
+
 `gradlew bootrun --args='--profile=dev'`
 
 Also there is swagger API documentation available on:
